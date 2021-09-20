@@ -1,0 +1,3 @@
+virtualenv venv -p C:\Users\sagieka\anaconda3\python.exe
+.\venv\Scripts\activate
+deactivate
