@@ -15,7 +15,7 @@ app = Flask(__name__)
 def process_image():
     class_names=['poop', 'vanila']
     IMAGE_SHAPE = (224, 224)
-    model = tf.keras.models.load_model('testTransferLerning')
+    model = tf.keras.models.load_model('handModelPoopVanila')
     file = request.files['image']
     
     #recive image and save
@@ -30,7 +30,7 @@ def process_image():
 
     msg = "This image most likely belongs to {} with a {:.2f} percent confidence.".format(class_names[np.argmax(score2)], 100 * np.max(score2))
     return jsonify(
-        {'msg':msg})
+        {'msg':msg,'name':class_names[np.argmax(score2)],'score':100 * np.max(score2)})
 
 
 if __name__ == "__main__":
