@@ -2,7 +2,7 @@ import requests
 from PIL import Image
 
 
-url = 'http://127.0.0.1:8020/runClassify'
+url = 'http://127.0.0.1:8020/runClassifyPoop'
 image = Image.open("poopTest2.jpeg")
 width, height = image.size
 img = open('poopTest2.jpeg', 'rb')
