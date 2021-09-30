@@ -30,7 +30,7 @@ def process_image():
 
 @app.route("/runClassifyPoop", methods=["POST"])
 def process_image_pooping():
-    class_names=['pooping', 'מot pooping']
+    class_names=['pooping', 'not pooping']
     IMAGE_SHAPE = (224, 224)
     model = tf.keras.models.load_model('PoopingOrNotLast')
     file = request.files['image']
