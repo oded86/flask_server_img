@@ -15,7 +15,7 @@ app = Flask(__name__)
 def process_image():
     class_names=['poop', 'vanila']
     IMAGE_SHAPE = (224, 224)
-    model = tf.keras.models.load_model('handModelPoopVanila')
+    model = tf.keras.models.load_model('testTransferLerning')
     file = request.files['image']
     dog1= Image.open(file.stream).resize(IMAGE_SHAPE)
     dog1 = np.array(dog1)/255.0
