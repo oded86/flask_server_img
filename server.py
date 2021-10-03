@@ -13,6 +13,7 @@ app = Flask(__name__)
 MODEL1= tf.keras.models.load_model('handModelPoopVanila')
 MODEL2=tf.keras.models.load_model('PoopingOrNotLast')
 MODEL3=tf.keras.models.load_model('VanilaVsUnknown')
+MODEL4=tf.keras.models.load_model('PoopVsUnknownUp')
 
 
 @app.route("/runClassify", methods=["POST"])
@@ -61,6 +62,21 @@ def process_image_vanilaOrNot():
     print(msg)
     return jsonify(
         {'msg':msg,'vanilaOrNot':class_names[np.argmax(score2)],'score':100 * np.max(score2)})
+
+@app.route("/poopOrNot", methods=["POST"])
+def process_image_poopOrNot():
+    class_names=['poop', 'unknown']
+    IMAGE_SHAPE = (224, 224)
+    # model = tf.keras.models.load_model('PoopingOrNotLast')
+    file = request.files['image']
+    dog1= Image.open(file.stream).resize(IMAGE_SHAPE)
+    dog1 = np.array(dog1)/255.0
+    result2 = MODEL4.predict(dog1[np.newaxis, ...])
+    score2 = tf.nn.softmax(result2[0])
+    msg = "This image most likely belongs to {} with a {:.2f} percent confidence.".format(class_names[np.argmax(score2)], 100 * np.max(score2))
+    print(msg)
+    return jsonify(
+        {'msg':msg,'poopOrNot':class_names[np.argmax(score2)],'score':100 * np.max(score2)})
 
 
 if __name__ == "__main__":
