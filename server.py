@@ -16,7 +16,7 @@ MODEL3=tf.keras.models.load_model('VanilaVsUnknown')
 MODEL4=tf.keras.models.load_model('PoopVsUnknownUp')
 
 
-@app.route("/runClassify", methods=["POST"])
+@app.route("/image_api/runClassify", methods=["POST"])
 def process_image():
     class_names=['poop', 'vanila']
     IMAGE_SHAPE = (224, 224)
@@ -34,7 +34,7 @@ def process_image():
             {'msg':msg,'name':class_names[np.argmax(score2)],'score':100 * np.max(score2)})
 
 
-@app.route("/runClassifyPoop", methods=["POST"])
+@app.route("/image_api/runClassifyPoop", methods=["POST"])
 def process_image_pooping():
     class_names=['pooping', 'not pooping']
     IMAGE_SHAPE = (224, 224)
@@ -50,7 +50,7 @@ def process_image_pooping():
         return jsonify(
             {'msg':msg,'poopOrNot':class_names[np.argmax(score2)],'score':100 * np.max(score2)})
 
-@app.route("/vanilaOrNot", methods=["POST"])
+@app.route("/image_api/vanilaOrNot", methods=["POST"])
 def process_image_vanilaOrNot():
     class_names=['vanila', 'unknown']
     IMAGE_SHAPE = (224, 224)
@@ -66,7 +66,7 @@ def process_image_vanilaOrNot():
         return jsonify(
             {'msg':msg,'vanilaOrNot':class_names[np.argmax(score2)],'score':100 * np.max(score2)})
 
-@app.route("/poopOrNot", methods=["POST"])
+@app.route("/image_api/poopOrNot", methods=["POST"])
 def process_image_poopOrNot():
     class_names=['poop', 'unknown']
     IMAGE_SHAPE = (224, 224)
@@ -83,5 +83,10 @@ def process_image_poopOrNot():
             {'msg':msg,'poopOrNot':class_names[np.argmax(score2)],'score':100 * np.max(score2)})    
 
 
+@app.route("/image_api/trying", methods=['GET'])
+def home5():
+        return "trying :)"
+
+
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=8020)
+    app.run(host='0.0.0.0')
